@@ -9,7 +9,7 @@
 Summary:	Mod_fastcgi is a DSO module for the apache Web server
 Name:		apache-%{mod_name}
 Version:	2.4.3
-Release:	%mkrel 0.0404142202.6
+Release:	%mkrel 0.%{snap}.7
 Group:		System/Servers
 License:	BSD-style
 URL:		http://www.fastcgi.com/
@@ -82,5 +82,3 @@ fi
 %dir /var/www/fcgi-bin
 %attr(0755,apache,apache) %dir %{_localstatedir}/mod_fastcgi
 %attr(0755,apache,apache) %dir %{_localstatedir}/mod_fastcgi/dynamic
-
-
