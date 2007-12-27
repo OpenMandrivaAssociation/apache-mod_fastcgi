@@ -1,23 +1,18 @@
-%define snap 0404142202
-
 #Module-Specific definitions
-%define apache_version 2.2.4
+%define apache_version 2.2.6
 %define mod_name mod_fastcgi
 %define mod_conf 92_%{mod_name}.conf
 %define mod_so %{mod_name}.so
 
 Summary:	Mod_fastcgi is a DSO module for the apache Web server
 Name:		apache-%{mod_name}
-Version:	2.4.3
-Release:	%mkrel 0.%{snap}.8
+Version:	2.4.6
+Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD-style
 URL:		http://www.fastcgi.com/
-Source0:	http://www.fastcgi.com/dist/mod_fastcgi-SNAP-%{snap}.tar.bz2
+Source0:	http://www.fastcgi.com/dist/%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
-# http://www.goldenbluellc.com/download/mod_fastcgi-SNAP-0503121812.tar.bz2
-Patch0:		mod_fastcgi-apache-2.1.x.diff
-# a possible enhancement? http://www.3skel.com/fastcgi/fastcgisa-2.4.0_0.1.tar.gz
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):  apache-conf >= %{apache_version}
@@ -25,7 +20,7 @@ Requires(pre):  apache >= %{apache_version}
 Requires:	apache-conf >= %{apache_version}
 Requires:	apache >= %{apache_version}
 BuildRequires:	apache-devel >= %{apache_version}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 mod_fastcgi provides FastCGI support for the apache web server. FastCGI is a
@@ -34,14 +29,12 @@ performance and persistence  without the limitations of server specific APIs.
 
 %prep
 
-%setup -q -n mod_fastcgi-SNAP-0404142202
-%patch0 -p1
+%setup -q -n %{mod_name}-%{version}
 
 cp %{SOURCE1} %{mod_conf}
 
-
 # get rid of the "cannot remove /var/run/fastcgi/dynamic" error at boot
-echo "#define DEFAULT_SOCK_DIR \"%{_localstatedir}/mod_fastcgi\"" >> mod_fastcgi.h
+perl -pi -e "s|^#define DEFAULT_SOCK_DIR  DEFAULT_REL_RUNTIMEDIR .*|#define DEFAULT_SOCK_DIR \"%{_localstatedir}/mod_fastcgi\"|g" mod_fastcgi.h
 
 %build
 
