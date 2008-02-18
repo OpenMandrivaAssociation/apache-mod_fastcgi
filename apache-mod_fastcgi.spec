@@ -4,7 +4,7 @@
 %define mod_conf 92_%{mod_name}.conf
 %define mod_so %{mod_name}.so
 
-Summary:	Mod_fastcgi is a DSO module for the apache Web server
+Summary:	DSO module for the apache Web server
 Name:		apache-%{mod_name}
 Version:	2.4.6
 Release:	%mkrel 1
