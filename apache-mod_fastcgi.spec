@@ -34,7 +34,7 @@ performance and persistence  without the limitations of server specific APIs.
 cp %{SOURCE1} %{mod_conf}
 
 # get rid of the "cannot remove /var/run/fastcgi/dynamic" error at boot
-perl -pi -e "s|^#define DEFAULT_SOCK_DIR  DEFAULT_REL_RUNTIMEDIR .*|#define DEFAULT_SOCK_DIR \"%{_localstatedir}/mod_fastcgi\"|g" mod_fastcgi.h
+perl -pi -e "s|^#define DEFAULT_SOCK_DIR  DEFAULT_REL_RUNTIMEDIR .*|#define DEFAULT_SOCK_DIR \"%{_localstatedir}/lib/mod_fastcgi\"|g" mod_fastcgi.h
 
 %build
 
@@ -47,7 +47,7 @@ install -d %{buildroot}/var/www/fcgi-bin
 
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
-install -d %{buildroot}%{_localstatedir}/mod_fastcgi/dynamic
+install -d %{buildroot}%{_localstatedir}/lib/mod_fastcgi/dynamic
 
 install -m0755 .libs/*.so %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
@@ -73,5 +73,5 @@ fi
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
 %dir /var/www/fcgi-bin
-%attr(0755,apache,apache) %dir %{_localstatedir}/mod_fastcgi
-%attr(0755,apache,apache) %dir %{_localstatedir}/mod_fastcgi/dynamic
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/mod_fastcgi
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/mod_fastcgi/dynamic
