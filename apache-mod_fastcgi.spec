@@ -7,7 +7,7 @@
 Summary:	DSO module for the apache Web server
 Name:		apache-%{mod_name}
 Version:	2.4.6
-Release:	%mkrel 3
+Release:	%mkrel 4
 Group:		System/Servers
 License:	BSD-style
 URL:		http://www.fastcgi.com/
@@ -20,7 +20,7 @@ Requires(pre):  apache >= %{apache_version}
 Requires:	apache-conf >= %{apache_version}
 Requires:	apache >= %{apache_version}
 BuildRequires:	apache-devel >= %{apache_version}
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 mod_fastcgi provides FastCGI support for the apache web server. FastCGI is a
@@ -34,7 +34,7 @@ performance and persistence  without the limitations of server specific APIs.
 cp %{SOURCE1} %{mod_conf}
 
 # get rid of the "cannot remove /var/run/fastcgi/dynamic" error at boot
-perl -pi -e "s|^#define DEFAULT_SOCK_DIR  DEFAULT_REL_RUNTIMEDIR .*|#define DEFAULT_SOCK_DIR \"%{_localstatedir}/lib/mod_fastcgi\"|g" mod_fastcgi.h
+perl -pi -e "s|^#define DEFAULT_SOCK_DIR  DEFAULT_REL_RUNTIMEDIR .*|#define DEFAULT_SOCK_DIR \"/var/lib/mod_fastcgi\"|g" mod_fastcgi.h
 
 %build
 
@@ -73,5 +73,5 @@ fi
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
 %dir /var/www/fcgi-bin
-%attr(0755,apache,apache) %dir %{_localstatedir}/lib/mod_fastcgi
-%attr(0755,apache,apache) %dir %{_localstatedir}/lib/mod_fastcgi/dynamic
+%attr(0755,apache,apache) %dir /var/lib/mod_fastcgi
+%attr(0755,apache,apache) %dir /var/lib/mod_fastcgi/dynamic
