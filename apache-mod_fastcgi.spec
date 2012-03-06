@@ -42,7 +42,7 @@ install -d %{buildroot}/var/lib/mod_fastcgi/dynamic
 install -m0755 .libs/*.so %{buildroot}%{_libdir}/apache-extramodules/
 
 cat > %{buildroot}%{_sysconfdir}/httpd/modules.d/%{load_order}_%{mod_name}.conf << EOF
-LoadModule fastcgi_module %{_libdir}/%{mod_name}.so
+LoadModule fastcgi_module %{_libdir}/apache/%{mod_name}.so
 
 ScriptAlias /fcgi-bin/ /var/www/fcgi-bin/
 
