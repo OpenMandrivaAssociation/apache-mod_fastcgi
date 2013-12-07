@@ -8,7 +8,7 @@
 Summary:	DSO module for the apache Web server
 Name:		apache-%{mod_name}
 Version:	2.4.7
-Release:	%mkrel 1
+Release:	2
 Group:		System/Servers
 License:	BSD-style
 URL:		http://www.fastcgi.com/
