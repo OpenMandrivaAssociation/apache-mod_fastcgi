@@ -11,7 +11,7 @@ Version:	2.4.7
 Release:	11
 Group:		System/Servers
 License:	BSD-style
-URL:		http://www.fastcgi.com/
+URL:		https://www.fastcgi.com/
 Source0:	http://www.fastcgi.com/dist/%{mod_name}-%{pre}.tar.gz
 Source1:	%{mod_conf}
 Patch0:		byte-compile-against-apache24.diff
